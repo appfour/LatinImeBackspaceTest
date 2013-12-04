@@ -91,11 +91,13 @@ public class GetTextBeforeCursorLimitedEditText extends EditText {
 		@Override
 		public CharSequence getTextBeforeCursor(int n, int flags) {
 			CharSequence res = ic.getTextBeforeCursor(n, flags);
+			CharSequence orig = res;
 			if (res != null)
 			{
 				int len = Math.min(1, res.length());
 				res = res.subSequence(res.length() - len, res.length());
 			}
+			Log.d("debug", "Orig: '"+orig+"'"+" Returning: '"+res+"'");
 			return res;
 		}
 
