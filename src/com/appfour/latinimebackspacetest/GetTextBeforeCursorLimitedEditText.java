@@ -3,7 +3,10 @@ package com.appfour.latinimebackspacetest;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.EditorInfo;
@@ -15,11 +18,12 @@ import android.widget.EditText;
 public class GetTextBeforeCursorLimitedEditText extends EditText {
 
 	private static class GetTextBeforeCursorLimitedInputConnectionWrapper
-			implements InputConnection {
+			extends BaseInputConnection {
 
 		private InputConnection ic;
 
-		public GetTextBeforeCursorLimitedInputConnectionWrapper(InputConnection ic) {
+		public GetTextBeforeCursorLimitedInputConnectionWrapper(View view, InputConnection ic) {
+			super(view, true);
 			this.ic = ic;
 		}
 
@@ -155,7 +159,7 @@ public class GetTextBeforeCursorLimitedEditText extends EditText {
 	public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
 		InputConnection ic = super.onCreateInputConnection(outAttrs);
 		if (ic != null) {
-			ic = new GetTextBeforeCursorLimitedInputConnectionWrapper(ic);
+			ic = new GetTextBeforeCursorLimitedInputConnectionWrapper(this, ic);
 		}
 		return ic;
 	}
