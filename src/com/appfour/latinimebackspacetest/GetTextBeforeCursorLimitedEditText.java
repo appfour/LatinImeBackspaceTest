@@ -2,6 +2,7 @@ package com.appfour.latinimebackspacetest;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -141,6 +142,10 @@ public class GetTextBeforeCursorLimitedEditText extends EditText {
 			return ic.setSelection(start, end);
 		}
 
+		@Override
+		public Editable getEditable() {
+			return ((BaseInputConnection) ic).getEditable();
+		}
 	}
 
 	public GetTextBeforeCursorLimitedEditText(Context context) {
